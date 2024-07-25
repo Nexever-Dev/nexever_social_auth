@@ -45,7 +45,7 @@ class FaceBookLogin extends LoginMethod {
             "https://graph.facebook.com/v2.12/me?fields=name,picture.width(800).height(800),first_name,last_name,email&access_token=$accessToken"),
       );
       return FacebookAccountData.fromJson(jsonDecode(response.body));
-    } on TimeoutException catch (e, st) {
+    } on TimeoutException catch (e) {
       throw 'Time out';
     } catch (e, st) {
       logError(

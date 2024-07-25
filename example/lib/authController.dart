@@ -4,7 +4,7 @@ import 'package:nexever_social_auth/social_login_functions/functions/facebook_lo
 import 'package:nexever_social_auth/social_login_functions/functions/google_login.dart';
 import 'package:nexever_social_auth/social_login_functions/state/login_states.dart';
 
-class Authcontroller implements LoginState{
+class Authcontroller implements LoginState {
   @override
   void error(error) {
     // TODO: implement error
@@ -15,14 +15,15 @@ class Authcontroller implements LoginState{
     // TODO: implement success
   }
 
-  googleLogin(){
-    LoginManager(loginMethod:GoogleLogin() , loginState:this );
-  }
-  faceBookLogin(){
-    LoginManager(loginMethod:FaceBookLogin() , loginState:this );
-  }
-  appleLogin(){
-    LoginManager(loginMethod:AppleLogin() , loginState:this );
+  googleLogin() {
+    LoginManager(loginMethod: GoogleLogin(), loginState: this);
   }
 
+  faceBookLogin() {
+    LoginManager(loginMethod: FaceBookLogin(), loginState: this);
+  }
+
+  appleLogin() {
+    LoginManager(loginMethod: AppleLogin(), loginState: this);
+  }
 }

@@ -45,4 +45,3 @@ extension ErrorLogs on Object {
         text: text);
   }
 }
-

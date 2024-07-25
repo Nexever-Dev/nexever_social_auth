@@ -20,7 +20,8 @@ class FacebookAccountData {
   /// Creates a [FacebookAccountData] instance from a JSON object.
   FacebookAccountData.fromJson(Map<String, dynamic> json) {
     name = json['name'];
-    picture = json['picture'] != null ? Picture.fromJson(json['picture']) : null;
+    picture =
+        json['picture'] != null ? Picture.fromJson(json['picture']) : null;
     firstName = json['first_name'];
     lastName = json['last_name'];
     email = json['email'];
