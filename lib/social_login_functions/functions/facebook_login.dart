@@ -21,9 +21,9 @@ class FaceBookLogin extends LoginMethod {
       await facebookAuth.logOut();
       final LoginResult result = await facebookAuth.login();
       var credential =
-          FacebookAuthProvider.credential(result.accessToken!.token);
+          FacebookAuthProvider.credential(result.accessToken!.tokenString);
       var res = await firebaseAuth.signInWithCredential(credential);
-      var details = await getFacebookAccountDetails(result.accessToken!.token);
+      var details = await getFacebookAccountDetails(result.accessToken!.tokenString);
       res.user!.updatePhotoURL(details.picture!.data!.url ?? '');
       return (res, "");
     } catch (e, st) {

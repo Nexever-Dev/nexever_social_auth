@@ -1,6 +1,6 @@
 name: nexever_social_auth
 description: A Flutter plugin for integrating social login functionalities into your app.
-version: 0.0.2
+version: 0.0.3
 homepage: https://github.com/Nexever-Dev/nexever_social_auth/blob/main/example/lib/main.dart
 repository: https://github.com/Nexever-Dev/nexever_social_auth.git
 
@@ -11,17 +11,17 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-  cupertino_icons: ^1.0.2
-  google_sign_in: ^6.2.1
-  firebase_auth: ^4.19.5
-  sign_in_with_apple: ^4.1.0
-  flutter_facebook_auth: ^6.2.0
-  http: ^1.2.1
+  cupertino_icons: ^1.0.8
+  google_sign_in: ^7.1.1
+  firebase_auth: ^6.0.1
+  sign_in_with_apple: ^7.0.1
+  flutter_facebook_auth: ^7.1.2
+  http: ^1.5.0
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
-  flutter_lints: ^3.0.0
+  flutter_lints: ^6.0.0
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec

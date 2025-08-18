@@ -31,14 +31,31 @@ class GoogleLogin extends LoginMethod {
   /// - [GoogleSignInAccount]: The Google account information.
   ///
   /// Throws an error if unable to connect with Google.
+  // Future<(AuthCredential, GoogleSignInAccount)> googleAccountCall() async {
+  //   GoogleSignIn googleSignIn = GoogleSignIn();
+  //   try {
+  //     await googleSignIn.signOut();
+  //     var googleUser = await googleSignIn.signIn();
+  //     GoogleSignInAuthentication googleAuth = await googleUser!.authentication;
+  //     final AuthCredential credential = GoogleAuthProvider.credential(
+  //       accessToken: googleAuth.accessToken,
+  //       idToken: googleAuth.idToken,
+  //     );
+  //     return (credential, googleUser);
+  //   } catch (error, st) {
+  //     logError(error: error.toString(), stackTrace: st, text: 'Google Login');
+  //     throw "Unable to connect with Google";
+  //   }
+  // }
+
   Future<(AuthCredential, GoogleSignInAccount)> googleAccountCall() async {
-    GoogleSignIn googleSignIn = GoogleSignIn();
+    GoogleSignIn googleSignIn = GoogleSignIn.instance;
     try {
       await googleSignIn.signOut();
-      var googleUser = await googleSignIn.signIn();
+      var googleUser = await googleSignIn.authenticate();
       GoogleSignInAuthentication googleAuth = await googleUser!.authentication;
       final AuthCredential credential = GoogleAuthProvider.credential(
-        accessToken: googleAuth.accessToken,
+        accessToken: googleAuth.idToken,
         idToken: googleAuth.idToken,
       );
       return (credential, googleUser);
