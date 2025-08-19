@@ -1,3 +1,7 @@
+## 0.0.4
+
+* Firebase issue fixed.
+
 ## 0.0.3
 
 * Example modified and package updated

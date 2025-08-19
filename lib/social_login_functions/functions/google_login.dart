@@ -31,39 +31,62 @@ class GoogleLogin extends LoginMethod {
   /// - [GoogleSignInAccount]: The Google account information.
   ///
   /// Throws an error if unable to connect with Google.
-  // Future<(AuthCredential, GoogleSignInAccount)> googleAccountCall() async {
-  //   GoogleSignIn googleSignIn = GoogleSignIn();
-  //   try {
-  //     await googleSignIn.signOut();
-  //     var googleUser = await googleSignIn.signIn();
-  //     GoogleSignInAuthentication googleAuth = await googleUser!.authentication;
-  //     final AuthCredential credential = GoogleAuthProvider.credential(
-  //       accessToken: googleAuth.accessToken,
-  //       idToken: googleAuth.idToken,
-  //     );
-  //     return (credential, googleUser);
-  //   } catch (error, st) {
-  //     logError(error: error.toString(), stackTrace: st, text: 'Google Login');
-  //     throw "Unable to connect with Google";
-  //   }
-  // }
+  ///
 
-  Future<(AuthCredential, GoogleSignInAccount)> googleAccountCall() async {
-    GoogleSignIn googleSignIn = GoogleSignIn.instance;
+
+   List<String> scopes = <String>[
+    'email',
+    'https://www.googleapis.com/auth/contacts.readonly',
+  ];
+
+
+  final _googleSignIn = GoogleSignIn.instance;
+  bool _isGoogleSignInInitialized = false;
+
+  Future<void> _initializeGoogleSignIn() async {
     try {
-      await googleSignIn.signOut();
-      var googleUser = await googleSignIn.authenticate();
-      GoogleSignInAuthentication googleAuth = await googleUser!.authentication;
-      final AuthCredential credential = GoogleAuthProvider.credential(
-        accessToken: googleAuth.idToken,
-        idToken: googleAuth.idToken,
-      );
-      return (credential, googleUser);
-    } catch (error, st) {
-      logError(error: error.toString(), stackTrace: st, text: 'Google Login');
-      throw "Unable to connect with Google";
+      await _googleSignIn.initialize();
+      _isGoogleSignInInitialized = true;
+    } catch (e) {
+      print('Failed to initialize Google Sign-In: $e');
     }
   }
+
+  /// Always check Google sign in initialization before use
+  Future<void> _ensureGoogleSignInInitialized() async {
+    if (!_isGoogleSignInInitialized) {
+      await _initializeGoogleSignIn();
+    }
+  }
+
+  Future<(AuthCredential, GoogleSignInAccount)> googleAccountCall() async {
+    try {
+
+      await _ensureGoogleSignInInitialized();
+      GoogleSignInAccount? account;
+
+      final GoogleSignInAccount googleUser = await _googleSignIn.authenticate();
+      final GoogleSignInAuthentication googleAuth = googleUser.authentication;
+
+      final OAuthCredential credential = GoogleAuthProvider.credential(
+        idToken: googleAuth.idToken,
+      );
+
+
+      account = await _googleSignIn.authenticate(
+          scopeHint: scopes,
+        );
+
+         return (credential,account);
+      } on GoogleSignInException catch (e) {
+        print('Google Sign In error:\n$e');
+        throw "Something went wrong";
+      } catch (error) {
+        print('Unexpected Google Sign-In error: $error');
+        throw "Something went wrong";
+      }
+  }
+
 
   /// Calls Firebase to sign in with the provided credentials and returns a [Future] containing [UserCredential].
   ///

@@ -8,11 +8,13 @@ import 'package:nexever_social_auth/social_login_functions/state/login_states.da
 class Authcontroller implements LoginState {
   @override
   void error(error) {
+    print("error here : ${error}");
     // TODO: implement error
   }
 
   @override
   void success(UserCredential creds, String loginType) {
+      print("error here : ${creds}");
     // TODO: implement success
   }
 

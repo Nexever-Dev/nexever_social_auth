@@ -1,6 +1,6 @@
 name: nexever_social_auth
 description: A Flutter plugin for integrating social login functionalities into your app.
-version: 0.0.3
+version: 0.0.4
 homepage: https://github.com/Nexever-Dev/nexever_social_auth/blob/main/example/lib/main.dart
 repository: https://github.com/Nexever-Dev/nexever_social_auth.git
 
