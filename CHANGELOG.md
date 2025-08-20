@@ -1,3 +1,7 @@
+## 0.0.5
+
+* Now function calling.
+
 ## 0.0.4
 
 * Firebase issue fixed.

@@ -19,15 +19,15 @@ class Authcontroller implements LoginState {
   }
 
   googleLogin() {
-    LoginManager(loginMethod: GoogleLogin(), loginState: this);
+    LoginManager(loginMethod: GoogleLogin(), loginState: this).login();
   }
 
   faceBookLogin() {
-    LoginManager(loginMethod: FaceBookLogin(), loginState: this);
+    LoginManager(loginMethod: FaceBookLogin(), loginState: this).login();
   }
 
   appleLogin() {
-    LoginManager(loginMethod: AppleLogin(), loginState: this);
+    LoginManager(loginMethod: AppleLogin(), loginState: this).login();
   }
 }
 

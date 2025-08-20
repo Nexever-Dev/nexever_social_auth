@@ -34,8 +34,7 @@ class GoogleLogin extends LoginMethod {
   ///
 
 
-   List<String> scopes = <String>[
-    'email',
+  List<String> scopes = <String>[
     'https://www.googleapis.com/auth/contacts.readonly',
   ];
 
@@ -61,30 +60,28 @@ class GoogleLogin extends LoginMethod {
 
   Future<(AuthCredential, GoogleSignInAccount)> googleAccountCall() async {
     try {
-
       await _ensureGoogleSignInInitialized();
-      GoogleSignInAccount? account;
-
-      final GoogleSignInAccount googleUser = await _googleSignIn.authenticate();
-      final GoogleSignInAuthentication googleAuth = googleUser.authentication;
+      // FIXED: Call authenticate() only once with scopes included
+      final GoogleSignInAccount googleUser = await _googleSignIn.authenticate(
+        scopeHint: scopes,
+      );
+      // FIXED: Added missing await
+      final GoogleSignInAuthentication googleAuth = await googleUser.authentication;
 
       final OAuthCredential credential = GoogleAuthProvider.credential(
         idToken: googleAuth.idToken,
       );
 
+      // FIXED: Return the same googleUser instance (no second authenticate call)
+      return (credential, googleUser);
 
-      account = await _googleSignIn.authenticate(
-          scopeHint: scopes,
-        );
-
-         return (credential,account);
-      } on GoogleSignInException catch (e) {
-        print('Google Sign In error:\n$e');
-        throw "Something went wrong";
-      } catch (error) {
-        print('Unexpected Google Sign-In error: $error');
-        throw "Something went wrong";
-      }
+    } on GoogleSignInException catch (e) {
+      print('Google Sign In error:\n$e');
+      throw "Something went wrong";
+    } catch (error) {
+      print('Unexpected Google Sign-In error: $error');
+      throw "Something went wrong";
+    }
   }
 
 
