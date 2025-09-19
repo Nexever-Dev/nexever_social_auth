@@ -1,3 +1,6 @@
+## 0.0.6
+* code update
+
 ## 0.0.5
 
 * Now function calling.

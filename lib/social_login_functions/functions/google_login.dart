@@ -77,7 +77,7 @@ class GoogleLogin extends LoginMethod {
 
     } on GoogleSignInException catch (e) {
       print('Google Sign In error:\n$e');
-      throw "Something went wrong";
+      throw "Something went wrong or may be google auth setup pending.";
     } catch (error) {
       print('Unexpected Google Sign-In error: $error');
       throw "Something went wrong";
